@@ -23,7 +23,7 @@ const textAnalyzerToolSchema = new mongoose.Schema({
     default: null
   },
   longestWordsInParagraphs: {
-    type: String,
+    type: [String],
     default: null
   },
 

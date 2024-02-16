@@ -82,10 +82,12 @@ exports.getLongestWordsInParagraphs = async (req, res, next) => {
             }, "");
             return longestWord;
         });
+      
         const data = await TextAnalyzerTool.create({
             text:text,
             longestWordsInParagraphs:longestWordsInParagraphs
         });
+        console.log(85, longestWordsInParagraphs)
         res.status(200).json({
             message: 'Success',
             data,
