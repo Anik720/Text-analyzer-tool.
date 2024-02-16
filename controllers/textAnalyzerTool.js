@@ -1,4 +1,5 @@
 const fs = require('fs');
+const TextAnalyzerTool = require('../models/TextAnalyzerToolModel');
 
 
 exports.getNumberOfWords = async (req, res, next) => {
@@ -6,8 +7,13 @@ exports.getNumberOfWords = async (req, res, next) => {
     try {
         const text = fs.readFileSync("test.txt", 'utf-8');
         const wordCount = text.split(/\s+/).filter(word => word !== '').length;
+        const data = await TextAnalyzerTool.create({
+            text:text,
+            words:wordCount
+        });
         res.status(200).json({
             message: 'Success',
+            data,
             wordCount
         });
     } catch (err) {
@@ -22,8 +28,13 @@ exports.getNumberOfCharacters = async (req, res, next) => {
     try {
         const text = fs.readFileSync("test.txt", 'utf-8');
         const characterCount = text.replace(/\s/g, '').length;
+        const data = await TextAnalyzerTool.create({
+            text:text,
+            characters:characterCount
+        });
         res.status(200).json({
             message: 'Success',
+            data,
             characterCount
         });
     } catch (err) {
@@ -41,8 +52,13 @@ exports.getNumberOfSentences = async (req, res, next) => {
     try {
         const text = fs.readFileSync("test.txt", 'utf-8');
         const sentenceCount = text.split(/[.!?]+/).filter(sentence => sentence.trim() !== '').length;
+        const data = await TextAnalyzerTool.create({
+            text:text,
+            sentences:sentenceCount
+        });
         res.status(200).json({
             message: 'Success',
+            data,
             sentenceCount
         });
     } catch (err) {
@@ -66,8 +82,13 @@ exports.getLongestWordsInParagraphs = async (req, res, next) => {
             }, "");
             return longestWord;
         });
+        const data = await TextAnalyzerTool.create({
+            text:text,
+            longestWordsInParagraphs:longestWordsInParagraphs
+        });
         res.status(200).json({
             message: 'Success',
+            data,
             longestWordsInParagraphs
         });
     } catch (err) {
@@ -84,8 +105,13 @@ exports.getNumberOfParagraphs = async (req, res, next) => {
     try {
         const text = fs.readFileSync("test.txt", 'utf-8');
         const paragraphCount = text.split(/\n\s*\n/).filter(para => para !== '').length;
+        const data = await TextAnalyzerTool.create({
+            text:text,
+            paragraphs:paragraphCount
+        });
         res.status(200).json({
             message: 'Success',
+            data,
             paragraphCount
         });
     } catch (err) {
